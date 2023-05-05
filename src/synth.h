@@ -18,7 +18,6 @@
 
 
 int octavebtn();
-// int waveformbtn();
 int frequenz();
 float volume();
 float detune();

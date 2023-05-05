@@ -1,6 +1,7 @@
 #ifndef _INTERFACE_H_
 #define _INTERFACE_H_
 #include <Arduino.h>
+#include "synth.h" 
 
 class Interface {
     private:

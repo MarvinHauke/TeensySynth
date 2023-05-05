@@ -33,7 +33,7 @@ void setup() {
   pinMode(poticutoffPin, INPUT);
   pinMode(buttonoctaveplusPin, INPUT_PULLUP);
   pinMode(buttonoctaveminusPin, INPUT_PULLUP);
-  pinMode(buttonwaveformPin, INPUT_PULLUP);
+
 
   waveform1.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
   waveform1.amplitude(1);

@@ -80,15 +80,3 @@ int cutoff(){
 
   return cutofffrq;
 }
-
-// int waveformbtn(){
-//   int waveformplus = digitalRead(buttonwaveformPin);
-//   static int btnstatus = 0;
-
-//   if (waveformplus == 0){
-//    btnstatus ++;
-//    delay (250);
-//     if (waveformplus >4){
-//       btnstatus =0;
-//     }
-//   }
