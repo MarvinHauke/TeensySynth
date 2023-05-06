@@ -1,16 +1,20 @@
 #include "hardwareinterface.h"
 
+Klangerzeugung volumewert;
+
 
 HardwareInterface::HardwareInterface(){
+   pinMode(ledrotPin, OUTPUT);
+   pinMode(ledgruenPin, OUTPUT);
 }
 
 void HardwareInterface::ledVolume (){
-    if(volume() <= 0.9){
+    if(volumewert.volume() <= 0.9){
       analogWrite(ledgruenPin, 200);
       analogWrite(ledrotPin, 0);
     }
 
-    if(volume() > 0.9){
+    else if(volumewert.volume() > 0.9){
       analogWrite(ledrotPin, 200);
       analogWrite(ledgruenPin, 0);
     }

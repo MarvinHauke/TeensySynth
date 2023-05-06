@@ -1,14 +1,40 @@
-#include "synth.h"
+#include "klangerzeugung.h"
+
+extern AudioOutputAnalog        dac44;    
+extern AudioMixer4              mixer1; 
+extern AudioSynthWaveform       waveform1;        
+extern AudioSynthWaveform       waveform2;     
+extern AudioSynthWaveform       waveform3; 
+extern AudioFilterStateVariable filter1; 
 
 
-float volume(){
-  float lautstaerke = analogRead(potivolumePin);
+Klangerzeugung::Klangerzeugung(){
+   waveform1.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
+   waveform1.amplitude(0.5);
+   waveform1.frequency(32);
+
+   waveform2.begin(WAVEFORM_SAWTOOTH);
+   waveform2.amplitude(0.5);
+   waveform2.frequency(32);
+
+   waveform3.begin(WAVEFORM_SAWTOOTH);
+   waveform3.amplitude(0.5);
+   waveform3.frequency(32);
+
+   filter1.frequency(200);
+   filter1.resonance(4);
+   filter1.octaveControl(4);
+   
+}
+
+float Klangerzeugung::volume(){
+   float lautstaerke = analogRead(potivolumePin);
   lautstaerke=map(lautstaerke,0,1023,0,1);
 
   return lautstaerke;
-}
-  
-int frequenz(){
+} 
+
+int Klangerzeugung::frequenz(){
  int startfrq = 32;
  int freq=analogRead(potipitchPin);
  
@@ -41,7 +67,7 @@ int frequenz(){
  return freq;
  }
 
-int octavebtn(){
+int Klangerzeugung::octavebtn(){
   int octaveplus = digitalRead(buttonoctaveplusPin);
   static int btnStatus = 0;
   
@@ -66,7 +92,7 @@ int octavebtn(){
   return btnStatus;
  }
 
-float detune(){
+float Klangerzeugung::detune(){
 
   float detuneamount = analogRead(potidetunePin);
    detuneamount = map(detuneamount,0,1023,0,3.5);
@@ -74,7 +100,7 @@ float detune(){
    return detuneamount;
 }
 
-int cutoff(){
+int Klangerzeugung::cutoff(){
   int cutofffrq = analogRead(poticutoffPin);
    cutofffrq=map(cutofffrq,0,1023,0,7000);
 
