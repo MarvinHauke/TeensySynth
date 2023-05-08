@@ -1,40 +1,22 @@
-#include "klangerzeugung.h"
+#include "soundgeneration.h"
 
-extern AudioOutputAnalog        dac44;    
-extern AudioMixer4              mixer1; 
-extern AudioSynthWaveform       waveform1;        
-extern AudioSynthWaveform       waveform2;     
-extern AudioSynthWaveform       waveform3; 
-extern AudioFilterStateVariable filter1; 
-
-
-Klangerzeugung::Klangerzeugung(){
-   waveform1.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
-   waveform1.amplitude(0.5);
-   waveform1.frequency(32);
-
-   waveform2.begin(WAVEFORM_SAWTOOTH);
-   waveform2.amplitude(0.5);
-   waveform2.frequency(32);
-
-   waveform3.begin(WAVEFORM_SAWTOOTH);
-   waveform3.amplitude(0.5);
-   waveform3.frequency(32);
-
-   filter1.frequency(200);
-   filter1.resonance(4);
-   filter1.octaveControl(4);
-   
+Soundgeneration::Soundgeneration(){ 
+  pinMode(potipitchPin, INPUT);
+  pinMode(potivolumePin, INPUT);
+  pinMode(potidetunePin, INPUT);
+  pinMode(poticutoffPin, INPUT);
+  pinMode(buttonoctaveplusPin, INPUT_PULLUP);
+  pinMode(buttonoctaveminusPin, INPUT_PULLUP);
 }
 
-float Klangerzeugung::volume(){
+float Soundgeneration::volume(){
    float lautstaerke = analogRead(potivolumePin);
   lautstaerke=map(lautstaerke,0,1023,0,1);
 
   return lautstaerke;
 } 
 
-int Klangerzeugung::frequenz(){
+int Soundgeneration::frequenz(){
  int startfrq = 32;
  int freq=analogRead(potipitchPin);
  
@@ -67,7 +49,7 @@ int Klangerzeugung::frequenz(){
  return freq;
  }
 
-int Klangerzeugung::octavebtn(){
+int Soundgeneration::octavebtn(){
   int octaveplus = digitalRead(buttonoctaveplusPin);
   static int btnStatus = 0;
   
@@ -92,7 +74,7 @@ int Klangerzeugung::octavebtn(){
   return btnStatus;
  }
 
-float Klangerzeugung::detune(){
+float Soundgeneration::detune(){
 
   float detuneamount = analogRead(potidetunePin);
    detuneamount = map(detuneamount,0,1023,0,3.5);
@@ -100,7 +82,7 @@ float Klangerzeugung::detune(){
    return detuneamount;
 }
 
-int Klangerzeugung::cutoff(){
+int Soundgeneration::cutoff(){
   int cutofffrq = analogRead(poticutoffPin);
    cutofffrq=map(cutofffrq,0,1023,0,7000);
 

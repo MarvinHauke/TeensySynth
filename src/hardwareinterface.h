@@ -2,13 +2,11 @@
 #define _HARDWAREINTERFACE_H_
 
 #include <Arduino.h>
-#include "klangerzeugung.h" 
+#include "soundgeneration.h" 
 
 #define ledrotPin 30
 #define ledgruenPin 29
-
-
-
+ 
 class HardwareInterface {
    private:
   
