@@ -4,8 +4,10 @@ Soundgeneration volumewert;
 
 
 HardwareInterface::HardwareInterface(){
-   pinMode(ledrotPin, OUTPUT);
-   pinMode(ledgruenPin, OUTPUT);
+  
+
+  pinMode(ledrotPin, OUTPUT);
+  pinMode(ledgruenPin, OUTPUT);
 }
 
 void HardwareInterface::ledVolume (){
