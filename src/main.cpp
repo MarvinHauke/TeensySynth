@@ -7,7 +7,11 @@
 #include <SerialFlash.h>
 #include <MIDIUSB.h>
 #include "hardwareinterface.h"
-#include "soundgeneration.h"
+#include "synthcontrol.h"
+
+#include <synth_wavetable.h>
+#include "./../Wavetable/BasicFlute1_samples.h"
+
 
 
 // GOLBAL VARIABLES
@@ -31,6 +35,9 @@ Soundgeneration oscilatorCW;
 
 AudioOutputAnalog        dac44;    
 AudioMixer4              mixer1; 
+
+AudioSynthWavetable wav1;
+
 AudioSynthWaveform       waveform1;        
 AudioSynthWaveform       waveform2;     
 AudioSynthWaveform       waveform3; 
@@ -42,6 +49,7 @@ AudioConnection          patchCord3(waveform3, 0, mixer1, 2);
 AudioConnection          patchCord4(mixer1, 0, envelope1, 0);
 AudioConnection          patchCord5(envelope1, 0, filter1, 0);
 AudioConnection          patchCord6(filter1, 0, dac44, 0);
+ 
 
 void setup() {
   Serial.begin(57600);
@@ -63,7 +71,6 @@ void setup() {
    envelope1.decay(100);
    envelope1.sustain(1);
    envelope1.release(50);
-
 }
 
 void loop() {
@@ -147,7 +154,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 103:
-      envelope1.release(1000*(value*DIV127));
+      envelope1.release(2000*(value*DIV127));
       break;
   }
 }   

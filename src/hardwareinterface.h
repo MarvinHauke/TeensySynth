@@ -2,7 +2,7 @@
 #define _HARDWAREINTERFACE_H_
 
 #include <Arduino.h>
-#include "soundgeneration.h" 
+#include "synthcontrol.h" 
 
 
 

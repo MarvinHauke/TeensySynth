@@ -1,5 +1,5 @@
-#ifndef _SOUNDGENERATION_H_
-#define _SOUNDGENERATION_H_
+#ifndef _SYNTHCONTROL_H_
+#define _SYNTHCONTROL_H_
  
 #include <Arduino.h>
 #include <Audio.h>

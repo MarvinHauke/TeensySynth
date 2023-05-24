@@ -1,4 +1,4 @@
-#include "soundgeneration.h"
+#include "synthcontrol.h"
 
 Soundgeneration::Soundgeneration(){ 
   
@@ -6,7 +6,7 @@ Soundgeneration::Soundgeneration(){
   pinMode(potidetunePin, INPUT);
   pinMode(poticutoffPin, INPUT);
   pinMode(potiresonancePin, INPUT);
-  pinMode(buttonoctaveplusPin, INPUT_PULLUP);
+  pinMode(buttonoctaveplusPin, INPUT_PULLUP); 
   pinMode(buttonoctaveminusPin, INPUT_PULLUP);
 }
 
