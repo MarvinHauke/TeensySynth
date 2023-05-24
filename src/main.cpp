@@ -9,10 +9,6 @@
 #include "hardwareinterface.h"
 #include "synthcontrol.h"
 
-#include <synth_wavetable.h>
-#include "./../Wavetable/BasicFlute1_samples.h"
-
-
 
 // GOLBAL VARIABLES
 const byte BUFFER = 8;      // Size of the Keyboardbuffer
