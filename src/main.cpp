@@ -6,9 +6,12 @@
 #include <SD.h>
 #include <SerialFlash.h>
 #include <MIDIUSB.h>
+
 #include "hardwareinterface.h"
 #include "synthcontrol.h"
 
+#include "ChurchOrgan_samples.h"
+#include "Ocarina_samples.h"
 
 // GOLBAL VARIABLES
 const byte BUFFER = 8;      // Size of the Keyboardbuffer
@@ -25,22 +28,23 @@ void keyBuff (byte note, bool playNote);
 void oscPlay(byte note);
 void oscStop();
 
-HardwareInterface ledVolume1;
+HardwareInterface        ledVolume1;
 
-Soundgeneration oscilatorCW;
+Synthcontrol             synthcontrol1;
 
 AudioOutputAnalog        dac44;    
 AudioMixer4              mixer1; 
 
-AudioSynthWavetable wav1;
+AudioSynthWavetable      wavetable1;
+AudioSynthWavetable      wavetable2;
 
 AudioSynthWaveform       waveform1;        
 AudioSynthWaveform       waveform2;     
 AudioSynthWaveform       waveform3; 
 AudioFilterStateVariable filter1;
 AudioEffectEnvelope      envelope1;
-AudioConnection          patchCord1(waveform1, 0, mixer1, 0);
-AudioConnection          patchCord2(waveform2, 0, mixer1, 1);
+AudioConnection          patchCord1(wavetable1, 0, mixer1, 0);
+AudioConnection          patchCord2(wavetable2, 0, mixer1, 1);
 AudioConnection          patchCord3(waveform3, 0, mixer1, 2);
 AudioConnection          patchCord4(mixer1, 0, envelope1, 0);
 AudioConnection          patchCord5(envelope1, 0, filter1, 0);
@@ -54,6 +58,12 @@ void setup() {
    usbMIDI.setHandleControlChange(myControlChange);
    usbMIDI.setHandleNoteOn(myNoteOn);
    usbMIDI.setHandleNoteOff(myNoteOff);
+
+
+   wavetable1.setInstrument(ChurchOrgan);
+   wavetable1.amplitude(1);
+   wavetable2.setInstrument(Ocarina);
+   wavetable2.amplitude(1);
 
    waveform1.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
    waveform2.begin(WAVEFORM_SAWTOOTH);
@@ -73,12 +83,12 @@ void loop() {
 
   usbMIDI.read();
 
-  mixer1.gain(0,oscilatorCW.volume());
-  mixer1.gain(1,oscilatorCW.volume());
-  mixer1.gain(2,oscilatorCW.volume());
+  mixer1.gain(0,synthcontrol1.volume());
+  mixer1.gain(1,synthcontrol1.volume());
+  mixer1.gain(2,synthcontrol1.volume());
 
-  filter1.frequency(oscilatorCW.cutoff());
-  filter1.resonance(oscilatorCW.resonanceQ());
+  filter1.frequency(synthcontrol1.cutoff());
+  filter1.resonance(synthcontrol1.resonanceQ());
 
   ledVolume1.ledVolume();
   
@@ -158,13 +168,24 @@ void myControlChange(byte channel, byte control, byte value) {
 void oscPlay(byte note){
 
     envelope1.noteOn();
-    waveform1.frequency(noteFreqs[note]);
-    waveform2.frequency(noteFreqs[note]+oscilatorCW.detune());
-    waveform3.frequency(noteFreqs[note]-oscilatorCW.detune());
+
+    wavetable1.playFrequency(noteFreqs[note]);
+    wavetable1.setFrequency(noteFreqs[note]);
+
+    wavetable2.playFrequency(noteFreqs[note]);
+    wavetable2.setFrequency(noteFreqs[note]);
+
+    // waveform1.frequency(noteFreqs[note]);
+    // waveform2.frequency(noteFreqs[note]+synthcontrol1.detune());
+    // waveform3.frequency(noteFreqs[note]-oscilatorCW.detune());
     float velo = (globalVelocity * DIV127);
-    waveform1.amplitude(velo);
-    waveform2.amplitude(velo);
-    waveform3.amplitude(velo);
+
+    wavetable1.amplitude(velo);
+    wavetable2.amplitude(velo);
+
+    // waveform1.amplitude(velo);
+    // waveform2.amplitude(velo);
+    // waveform3.amplitude(velo);
 
     envelope1.noteOn();
 }

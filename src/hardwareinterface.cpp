@@ -1,6 +1,6 @@
 #include "hardwareinterface.h"
 
-Soundgeneration volumewert;
+Synthcontrol volumewert;
 
 
 HardwareInterface::HardwareInterface(){

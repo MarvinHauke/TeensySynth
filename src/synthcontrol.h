@@ -2,8 +2,8 @@
 #define _SYNTHCONTROL_H_
  
 #include <Arduino.h>
-#include <Audio.h>
-#include <AudioStream.h>
+// #include <Audio.h>
+// #include <AudioStream.h>
 
 #define buttonoctaveplusPin 18
 #define buttonoctaveminusPin 17
@@ -15,12 +15,12 @@
 #define poticutoffPin 15
 #define potiresonancePin 32
 
-class Soundgeneration {
+class Synthcontrol {
    
    private:
 
    public:
-      Soundgeneration();
+      Synthcontrol();
  
       float volume();
       float detune();

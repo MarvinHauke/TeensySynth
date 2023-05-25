@@ -1,6 +1,6 @@
 #include "synthcontrol.h"
 
-Soundgeneration::Soundgeneration(){ 
+Synthcontrol::Synthcontrol(){ 
   
   pinMode(potivolumePin, INPUT);
   pinMode(potidetunePin, INPUT);
@@ -10,7 +10,7 @@ Soundgeneration::Soundgeneration(){
   pinMode(buttonoctaveminusPin, INPUT_PULLUP);
 }
 
-float Soundgeneration::volume(){
+float Synthcontrol::volume(){
    float lautstaerke = analogRead(potivolumePin);
   lautstaerke=map(lautstaerke,0,1023,0,1);
 
@@ -18,7 +18,7 @@ float Soundgeneration::volume(){
 } 
 
 
-float Soundgeneration::detune(){
+float Synthcontrol::detune(){
 
   float detuneamount = analogRead(potidetunePin);
    detuneamount = map(detuneamount,0,1023,0,3.5);
@@ -26,14 +26,14 @@ float Soundgeneration::detune(){
    return detuneamount;
 }
 
-int Soundgeneration::cutoff(){
+int Synthcontrol::cutoff(){
   int cutofffrq = analogRead(poticutoffPin);
    cutofffrq=map(cutofffrq,0,1023,0,7000);
 
   return cutofffrq;
 }
 
-float Soundgeneration::resonanceQ(){
+float Synthcontrol::resonanceQ(){
   float resoqwert = analogRead(potiresonancePin);
    resoqwert=map(resoqwert,0,1023,0.7,5.0);
 
