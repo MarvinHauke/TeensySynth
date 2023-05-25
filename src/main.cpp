@@ -1,3 +1,12 @@
+// TO DO:        (25.05.2023, Do)     
+//               - Polyphonie
+//               - Wavescan?? bzw. bisher nur ein einziger statischer Wavetable möglich
+//               - Hüllkurve tunen und FilterHüllkurve
+//               - Gainstaging wegen Clipping
+//               -
+//               -
+//               -
+//               -
 
 #include <Arduino.h>
 #include <Audio.h>
